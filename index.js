@@ -2,8 +2,10 @@ const yamljs = require("yamljs");
 const fs = require("fs");
 const axios = require("axios");
 const express = require("express");
+const dotenv = require("dotenv");
 
 const app = express();
+dotenv.config()
 
 app.get("/", async (req, res) => {
 	res.send("Running...");
@@ -13,8 +15,7 @@ app.get("/", async (req, res) => {
 app.get("/api/v1/apiview", async (req, res) => {
 	const { type, name } = req.query;
 	const auth_bearer =
-		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSb2xlIjoiVG9vbEFkbWluaXN0cmF0b3IiLCJPcmdhbmlzYXRpb25JRCI6ImNlNjAxM2ZmLTNhYzMtNDdlOC05MDYxLWQ4NTY0YTM5Y2YzMiIsIk9yZ2FuaXNhdGlvbk5hbWUiOiJCSUFOIiwiZXhwIjoxNjcyNTYyOTg3LCJpc3MiOiJodHRwczovL2FwaS5iaWFuLm9yZyIsImF1ZCI6Imh0dHBzOi8vYXBpLmJpYW4ub3JnIn0.l7gxnkq5xo_ht4tJyYADfaVoqoQMOeWNrzBGy9zjJ3c";
-
+		"Bearer " + process.env.NODE_ENV_JWT_TOKEN;
 	let url =
 		"https://bian-modelapi-sandbox-v3.azurewebsites.net/ApiByName/ArchiveServices";
 	if (name) {
